@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">LocalWallet</string>
+    <string name="income">Income</string>
+    <string name="expense">Expense</string>
+    <string name="search">Search</string>
+    <string name="markupshint">Markups</string>
+    <string name="locationhint">Location</string>
+    <string name="pricehint">Price</string>
+    <string name="save">SAVE</string>
+    <string name="datehint">Date</string>
+    <string-array name="propertes">
+        <item>Date</item>
+        <item>Location</item>
+        <item>Markups</item>
+    </string-array>
 </resources>

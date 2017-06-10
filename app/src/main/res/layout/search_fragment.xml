@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45dp"
+        android:text="Search By`"
+        android:textSize="15sp"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/colorPrimary"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/property_spinner"
+        android:popupBackground="@drawable/spinner_selector"
+        android:background="@drawable/spinner_selector"
+        >
+
+
+
+    </Spinner>
+</RelativeLayout>
