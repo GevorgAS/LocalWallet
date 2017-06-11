@@ -1,5 +1,6 @@
 package ipc.gev.localwallet.Fragments;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -8,13 +9,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
+
+import java.util.Calendar;
+
 import ipc.gev.localwallet.R;
+import ipc.gev.localwallet.db.DB;
+import ipc.gev.localwallet.db.entity.Trade;
 
 
 public class ExpenseFragment extends Fragment implements View.OnClickListener{
-    private RelativeLayout layout;
-    private Button save;
+    int year;
+    int month;
+    int day;
+    RelativeLayout layout;
+    Button save;
+    DB db;
+    EditText markups_et;
+    EditText location_et;
+    EditText price_et;
+    EditText date_et;
 
     @Nullable
     @Override
@@ -23,6 +39,12 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener{
         save = (Button) view.findViewById(R.id.save_expanse);
         save.setOnClickListener(this);
         layout = (RelativeLayout) view.findViewById(R.id.main_expense_layout);
+        db = DB.getInstance(getContext());
+        markups_et = (EditText) view.findViewById(R.id.expense_markups);
+        location_et = (EditText) view.findViewById(R.id.expense_location);
+        price_et = (EditText) view.findViewById(R.id.expense_price);
+        date_et = (EditText) view.findViewById(R.id.expense_date);
+        date_et.setOnClickListener(this);
         return view;
     }
 
@@ -32,18 +54,70 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener{
 
         switch (id) {
             case R.id.save_expanse:
-                Snackbar snackbar = Snackbar
-                        .make(layout, "Welcome to AndroidHive", Snackbar.LENGTH_LONG);
+                if (validate()) {
+                    String markups = markups_et.getText().toString();
+                    String location = location_et.getText().toString();
+                    int price = Integer.parseInt(price_et.getText().toString());
+                    String date = date_et.getText().toString();
+                    Trade trade = new Trade(markups, location, price, date, Trade.EXPENSE);
+                    db.createTrade(trade);
+                    Snackbar snackbar = Snackbar
+                            .make(layout, R.string.add_expense, Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    markups_et.setText("");
+                    location_et.setText("");
+                    price_et.setText("");
 
-                snackbar.show();
+                }
                 break;
 
             case R.id.expense_date:
-
+                Calendar calendar = Calendar.getInstance();
+                int c_year = calendar.get(Calendar.YEAR);
+                int c_month = calendar.get(Calendar.MONTH);
+                int c_day = calendar.get(Calendar.DAY_OF_MONTH);
+                new DatePickerDialog(getContext(), datePickerListener,c_year, c_month,c_day).show();
                 break;
 
         }
     }
+    private boolean validate(){
+        boolean isCorrect = true;
+        if (markups_et.getText().toString().equals("")){
+            markups_et.setError("Required");
+            isCorrect = false;
+        }
+        if (location_et.getText().toString().equals("")){
+            location_et.setError("Required");
+            isCorrect = false;
+        }
+        if (price_et.getText().toString().equals("")){
+            price_et.setError("Required");
+            isCorrect = false;
+        }
+        if (date_et.getText().toString().equals("")){
+            date_et.setError("Required");
+            isCorrect = false;
+        }
+        return isCorrect;
+    }
+    private DatePickerDialog.OnDateSetListener datePickerListener
+            = new DatePickerDialog.OnDateSetListener() {
+
+        public void onDateSet(DatePicker view, int c_year,
+                              int c_month, int c_day) {
+
+            year = c_year;
+            month = c_month;
+            day = c_day;
+
+            String mm = (month+1)<10?"0" + (month+1):""+(month+1);
+            date_et.setText(new StringBuilder().append(day)
+                    .append("/").append(mm).append("/").append(year)
+                    .append(" "));
+
+        }
+    };
 }
 
 

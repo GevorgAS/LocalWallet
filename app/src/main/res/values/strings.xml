@@ -8,6 +8,8 @@
     <string name="pricehint">Price</string>
     <string name="save">SAVE</string>
     <string name="datehint">Date</string>
+    <string name="add_income">Your Income Successfully Added</string>
+    <string name="add_expense">Your Expense Successfully Added :)</string>
     <string-array name="propertes">
         <item>Date</item>
         <item>Location</item>

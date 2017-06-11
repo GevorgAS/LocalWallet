@@ -1,4 +1,4 @@
-package ipc.gev.localwallet;
+package ipc.gev.localwallet.Activities;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +15,7 @@ import java.util.List;
 import ipc.gev.localwallet.Fragments.ExpenseFragment;
 import ipc.gev.localwallet.Fragments.IncomeFragment;
 import ipc.gev.localwallet.Fragments.SearchFragment;
+import ipc.gev.localwallet.R;
 
 
 public class MainActivity extends AppCompatActivity {
