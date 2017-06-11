@@ -6,7 +6,7 @@
     <string name="markupshint">Markups</string>
     <string name="locationhint">Location</string>
     <string name="pricehint">Price</string>
-    <string name="save">SAVE</string>
+    <string name="save">Save</string>
     <string name="datehint">Date</string>
     <string name="add_income">Your Income Successfully Added</string>
     <string name="add_expense">Your Expense Successfully Added :)</string>
@@ -14,7 +14,14 @@
     <string name="search_by_location">Search by Location</string>
     <string name="search_by_markups">Search by Markups</string>
     <string name="searchBn">Search</string>
-    <string-array name="propertes">
+    <string name="required">Required</string>
+    <string name="expense_sum">The Summary of Expenses are </string>
+    <string name="income_sum">The Summary of Incomes are </string>
+    <string name="money">AMD</string>
+    <string name="languages">Languages</string>
+    <string name="about">About</string>
+
+    <string-array name="properties">
         <item>Date</item>
         <item>Location</item>
         <item>Markups</item>

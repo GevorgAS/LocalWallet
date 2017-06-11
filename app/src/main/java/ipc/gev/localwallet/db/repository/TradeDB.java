@@ -58,33 +58,9 @@ public class TradeDB implements Trade_I{
         return trades;
     }
 
-    @Override
-    public List<Trade> searchByMarkups(String markups, int status) {
-        List<Trade> trades = new ArrayList<>();
-        String query = "select * from " + TradeTable.TABLE_NAME+" where " + TradeTable.COLUMN_MARKUPS+" like ? and "+TradeTable.COLUMN_STATUS+" = ?";
-        Cursor cursor = database.rawQuery(query,new String[]{"%"+markups+"%",status+""});
-        while (!cursor.isAfterLast()){
-            Trade trade = cursorToTrade(cursor);
-            trades.add(trade);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        return trades;
-    }
 
-    @Override
-    public List<Trade> searchByLocation(String location, int status) {
-        List<Trade> trades = new ArrayList<>();
-        String query = "select * from "+ TradeTable.TABLE_NAME+" where "+TradeTable.COLUMN_LOCATION+ " like ? and "+ TradeTable.COLUMN_STATUS+" = ?";
-        Cursor cursor = database.rawQuery(query,new String[]{"%"+location+"%",status+""});
-        while (!cursor.isAfterLast()){
-            Trade trade = cursorToTrade(cursor);
-            trades.add(trade);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        return trades;
-    }
+
+
 
 
     @Override
@@ -118,7 +94,107 @@ public class TradeDB implements Trade_I{
         return sum;
     }
 
+    @Override
+    public int sumByDateMarkups(String date, String markups, int status) {
+        int sum = 0;
+        String query = "select * from "+ TradeTable.TABLE_NAME+" where "+ TradeTable.COLUMN_DATE+" = ?  and "+TradeTable.COLUMN_STATUS+" = ? " +
+                "and "+TradeTable.COLUMN_MARKUPS+" like ?";
+        Cursor cursor = database.rawQuery(query,new String[]{date,status+"","%"+markups+"%"});
+        cursor.moveToFirst();
 
+        while (!cursor.isAfterLast()){
+            Trade trade = cursorToTrade(cursor);
+            sum+=trade.getPrice();
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return sum;
+    }
+
+    @Override
+    public int sumByDateLocation(String date, String location, int status) {
+        int sum =0;
+        String query = "select * from "+ TradeTable.TABLE_NAME+" where "+ TradeTable.COLUMN_DATE+" = ?  and "+TradeTable.COLUMN_STATUS+" = ? " +
+                "and "+TradeTable.COLUMN_LOCATION+" like ?";
+        Cursor cursor = database.rawQuery(query,new String[]{date,status+"","%"+location+"%"});
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast()){
+            Trade trade = cursorToTrade(cursor);
+            sum+=trade.getPrice();
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return sum;
+    }
+
+    @Override
+    public int sumByDateLocationMarkups(String date, String location, String markups, int status) {
+        int sum = 0;
+        String query = "select * from "+ TradeTable.TABLE_NAME+" where "+ TradeTable.COLUMN_DATE+" = ?  and "+TradeTable.COLUMN_STATUS+" = ? " +
+                "and "+TradeTable.COLUMN_LOCATION+" like ? and "+TradeTable.COLUMN_MARKUPS+" like ?";
+        Cursor cursor = database.rawQuery(query,new String[]{date,status+"","%"+location+"%","%"+markups+"%"});
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast()){
+            Trade trade = cursorToTrade(cursor);
+            sum+=trade.getPrice();
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return sum;
+    }
+
+    @Override
+    public List<Trade> searchByDateMarkups(String date, String markups, int status) {
+        List<Trade> trades = new ArrayList<>();
+        String query = "select * from "+ TradeTable.TABLE_NAME+" where "+ TradeTable.COLUMN_DATE+" = ?  and "+TradeTable.COLUMN_STATUS+" = ? " +
+                "and "+TradeTable.COLUMN_MARKUPS+" like ?";
+        Cursor cursor = database.rawQuery(query,new String[]{date,status+"","%"+markups+"%"});
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast()){
+            Trade trade = cursorToTrade(cursor);
+            trades.add(trade);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return trades;
+    }
+
+    @Override
+    public List<Trade> searchByDateLocation(String date, String location, int status) {
+        List<Trade> trades = new ArrayList<>();
+        String query = "select * from "+ TradeTable.TABLE_NAME+" where "+ TradeTable.COLUMN_DATE+" = ?  and "+TradeTable.COLUMN_STATUS+" = ? " +
+                "and "+TradeTable.COLUMN_LOCATION+" like ?";
+        Cursor cursor = database.rawQuery(query,new String[]{date,status+"","%"+location+"%"});
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast()){
+            Trade trade = cursorToTrade(cursor);
+            trades.add(trade);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return trades;
+    }
+
+    @Override
+    public List<Trade> searchByDateLocationMarkups(String date, String location, String markups, int status) {
+        List<Trade> trades = new ArrayList<>();
+        String query = "select * from "+ TradeTable.TABLE_NAME+" where "+ TradeTable.COLUMN_DATE+" = ?  and "+TradeTable.COLUMN_STATUS+" = ? " +
+                "and "+TradeTable.COLUMN_LOCATION+" like ? and "+TradeTable.COLUMN_MARKUPS+" like ?";
+        Cursor cursor = database.rawQuery(query,new String[]{date,status+"","%"+location+"%","%"+markups+"%"});
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast()){
+            Trade trade = cursorToTrade(cursor);
+            trades.add(trade);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return trades;
+    }
 
 
     private Trade cursorToTrade(Cursor cursor) {

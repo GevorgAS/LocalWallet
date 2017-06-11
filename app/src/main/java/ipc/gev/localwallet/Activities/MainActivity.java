@@ -2,12 +2,13 @@ package ipc.gev.localwallet.Activities;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,11 +50,11 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
-    class WalletPagerAdapter extends FragmentStatePagerAdapter {
+    private class WalletPagerAdapter extends FragmentStatePagerAdapter {
         private final List<String> mFragmentTitleList = new ArrayList<>();
         private final List<Fragment> mFragmentList = new ArrayList<>();
 
-        public WalletPagerAdapter(FragmentManager fm) {
+        private WalletPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             return mFragmentList.get(position);
         }
 
-        public void addFragment(Fragment fragment, String title) {
+        private void addFragment(Fragment fragment, String title) {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
 
@@ -81,4 +82,28 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.languages:
+
+                break;
+            case R.id.about:
+
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }
