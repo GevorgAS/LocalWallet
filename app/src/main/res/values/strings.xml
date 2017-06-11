@@ -10,6 +10,10 @@
     <string name="datehint">Date</string>
     <string name="add_income">Your Income Successfully Added</string>
     <string name="add_expense">Your Expense Successfully Added :)</string>
+    <string name="search_by_date">Search by Date</string>
+    <string name="search_by_location">Search by Location</string>
+    <string name="search_by_markups">Search by Markups</string>
+    <string name="searchBn">Search</string>
     <string-array name="propertes">
         <item>Date</item>
         <item>Location</item>
