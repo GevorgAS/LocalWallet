@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/button_shape"
-            android:text="@string/datehint"
+            android:text="@string/date_hint"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp" />
 
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/button_shape_two"
-            android:text="@string/locationhint"
+            android:text="@string/location_hint"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/button_shape_two"
-            android:text="@string/markupshint"
+            android:text="@string/markups_hint"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
     </LinearLayout>

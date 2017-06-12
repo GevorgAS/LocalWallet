@@ -3,11 +3,11 @@
     <string name="income">Income</string>
     <string name="expense">Expense</string>
     <string name="search">Search</string>
-    <string name="markupshint">Markups</string>
-    <string name="locationhint">Location</string>
-    <string name="pricehint">Price</string>
+    <string name="markups_hint">Markups</string>
+    <string name="location_hint">Location</string>
+    <string name="price_hint">Price</string>
     <string name="save">Save</string>
-    <string name="datehint">Date</string>
+    <string name="date_hint">Date</string>
     <string name="add_income">Your Income Successfully Added</string>
     <string name="add_expense">Your Expense Successfully Added :)</string>
     <string name="search_by_date">Search by Date</string>
