@@ -2,6 +2,7 @@ package ipc.gev.localwallet.Fragments;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import ipc.gev.localwallet.Activities.EditActivity;
 import ipc.gev.localwallet.Adapters.TradeAdapter;
 import ipc.gev.localwallet.R;
 import ipc.gev.localwallet.db.DB;
@@ -257,7 +259,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                         .setNegativeButton("Edit", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
+                                editTrade(position);
                             }
                         })
                         .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
@@ -282,9 +284,17 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         Trade trade = trades.get(position);
         long id = trade.getId();
         String markups = trade.getMarkups();
-        String loc = trade.getLocation();
+        String location = trade.getLocation();
         String date = trade.getDate();
         int price = trade.getPrice();
+
+        Intent intent = new Intent(getActivity(), EditActivity.class);
+        intent.putExtra("_id",id+"");
+        intent.putExtra("_markups",markups);
+        intent.putExtra("_location",location);
+        intent.putExtra("_price",price+"");
+        intent.putExtra("_date",date);
+        startActivity(intent);
 
 
     }

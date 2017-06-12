@@ -1,8 +1,11 @@
 package ipc.gev.localwallet.Activities;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -19,6 +22,7 @@ public class EditActivity extends AppCompatActivity {
     EditText date_et;
     int year,month,day;
     DB db;
+    long currentID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +33,29 @@ public class EditActivity extends AppCompatActivity {
         price_et = (EditText) findViewById(R.id.edit_price);
         date_et = (EditText) findViewById(R.id.edit_date);
         db = DB.getInstance(this);
+
+        Intent intent = getIntent();
+        String markups = intent.getStringExtra("_markups");
+        String location = intent.getStringExtra("_location");
+        String date = intent.getStringExtra("_date");
+        String price = intent.getStringExtra("_price");
+        String id = intent.getStringExtra("_id");
+
+        markups_et.setText(markups);
+        location_et.setText(location);
+        price_et.setText(price);
+        date_et.setText(date);
+        currentID = Long.parseLong(id,10);
+
     }
     public void saveEdits(View view) {
         if (validate()){
-
+            String markups_edit = markups_et.getText().toString();
+            String location_edit = location_et.getText().toString();
+            String date_edit = date_et.getText().toString();
+            int price_edit = Integer.parseInt(price_et.getText().toString());
+            db.updateTradeByID(currentID,markups_edit,location_edit,price_edit,date_edit);
+            finish();
         }
 
     }
@@ -81,5 +104,25 @@ public class EditActivity extends AppCompatActivity {
             isCorrect = false;
         }
         return isCorrect;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.languages:
+
+                break;
+            case R.id.about:
+
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

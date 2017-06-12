@@ -14,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 
 import java.util.Calendar;
@@ -26,6 +27,7 @@ public class IncomeFragment extends Fragment implements View.OnClickListener {
     int year;
     int month;
     int day;
+
     Button save;
     RelativeLayout layout;
     DB db;
@@ -49,6 +51,10 @@ public class IncomeFragment extends Fragment implements View.OnClickListener {
         price_et = (EditText) view.findViewById(R.id.income_price);
         date_et = (EditText) view.findViewById(R.id.income_date);
         date_et.setOnClickListener(this);
+        markups_et.setOnClickListener(this);
+        location_et.setOnClickListener(this);
+        price_et.setOnClickListener(this);
+
         return view;
     }
 
@@ -82,6 +88,15 @@ public class IncomeFragment extends Fragment implements View.OnClickListener {
                 int c_month = calendar.get(Calendar.MONTH);
                 int c_day = calendar.get(Calendar.DAY_OF_MONTH);
                 new DatePickerDialog(getContext(), datePickerListener,c_year, c_month,c_day).show();
+                break;
+            case R.id.income_markups:
+
+                break;
+            case R.id.income_location:
+
+                break;
+            case R.id.income_price:
+
                 break;
 
         }
