@@ -1,5 +1,6 @@
 package ipc.gev.localwallet.Activities;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -93,10 +94,12 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id){
             case R.id.languages:
-
+                Intent lang_intent = new Intent(MainActivity.this,LanguagesActivity.class);
+                startActivity(lang_intent);
                 break;
             case R.id.about:
-
+                Intent about_intent = new Intent(MainActivity.this,AboutActivity.class);
+                startActivity(about_intent);
                 break;
         }
         return super.onOptionsItemSelected(item);

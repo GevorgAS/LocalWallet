@@ -15,7 +15,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.EditActivity"></activity>
+        <activity android:name=".Activities.EditActivity" />
+        <activity
+            android:name=".Activities.AboutActivity"
+            android:parentActivityName=".Activities.MainActivity"/>
+        <activity
+            android:name=".Activities.LanguagesActivity"
+            android:parentActivityName=".Activities.MainActivity"/>
     </application>
 
 </manifest>
