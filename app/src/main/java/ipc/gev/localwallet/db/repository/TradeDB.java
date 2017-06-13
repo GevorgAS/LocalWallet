@@ -196,6 +196,22 @@ public class TradeDB implements Trade_I{
         return trades;
     }
 
+    @Override
+    public List<Trade> searchAll(int status) {
+        List<Trade> trades = new ArrayList<>();
+        String query = "select * from "+ TradeTable.TABLE_NAME+" where "+ TradeTable.COLUMN_STATUS+" = ?";
+        Cursor cursor = database.rawQuery(query,new String[]{status+""});
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast()){
+            Trade trade = cursorToTrade(cursor);
+            trades.add(trade);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return trades;
+    }
+
 
     private Trade cursorToTrade(Cursor cursor) {
         Trade trade = new Trade();

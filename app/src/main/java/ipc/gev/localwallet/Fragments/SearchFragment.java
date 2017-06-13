@@ -46,6 +46,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     ArrayList<Trade> trades;
     TradeAdapter tradeAdapter;
     ListView listView;
+    final int EDIT_INTENT = 100;
 
 
 
@@ -117,9 +118,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.search_bt:
-                if (!searchByDate.getText().toString().equals("")) {
                     String search_by_date = searchByDate.getText().toString();
-
+                    String search_by_markups;
+                    String search_by_location;
                     if (!switch_trade.isChecked()) {
                         if (searchByMarkups.getText().toString().equals("") && searchByLocation.getText().toString().equals("")) {
                             int sumIncome = db.sumTrades(search_by_date, Trade.INCOME);
@@ -129,8 +130,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                             tradeAdapter.notifyDataSetChanged();
                             result.setText(getString(R.string.income_sum)+" "+sumIncome+" "+getString(R.string.money));
                         }else if (!searchByMarkups.getText().toString().equals("") && !searchByLocation.getText().toString().equals("")){
-                            String search_by_location = searchByLocation.getText().toString();
-                            String search_by_markups = searchByMarkups.getText().toString();
+                            search_by_location = searchByLocation.getText().toString();
+                            search_by_markups = searchByMarkups.getText().toString();
                             int sumIncome =db.sumByDateLocationMarkups(search_by_date,search_by_location,search_by_markups,Trade.INCOME);
                             trades = (ArrayList<Trade>) db.searchByDateLocationMarkups(search_by_date,search_by_location,search_by_markups,Trade.INCOME);
                             tradeAdapter = new TradeAdapter(getContext(), trades);
@@ -138,7 +139,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                             tradeAdapter.notifyDataSetChanged();
                             result.setText(getString(R.string.income_sum)+" "+sumIncome+" "+getString(R.string.money));
                         }else if (searchByLocation.getText().toString().equals("") && !searchByMarkups.getText().toString().equals("")){
-                            String search_by_markups = searchByMarkups.getText().toString();
+                            search_by_markups = searchByMarkups.getText().toString();
                             int sumIncome = db.sumByDateMarkups(search_by_date,search_by_markups,Trade.INCOME);
                             trades = (ArrayList<Trade>) db.searchByDateMarkups(search_by_date,search_by_markups,Trade.INCOME);
                             tradeAdapter = new TradeAdapter(getContext(), trades);
@@ -146,7 +147,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                             tradeAdapter.notifyDataSetChanged();
                             result.setText(getString(R.string.income_sum)+" "+sumIncome+" "+getString(R.string.money));
                         }else{
-                            String search_by_location = searchByLocation.getText().toString();
+                            search_by_location = searchByLocation.getText().toString();
                             int sumIncome = db.sumByDateLocation(search_by_date,search_by_location,Trade.INCOME);
                             trades =(ArrayList<Trade>) db.searchByDateLocation(search_by_date,search_by_location,Trade.INCOME);
                             tradeAdapter = new TradeAdapter(getContext(), trades);
@@ -163,8 +164,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                             tradeAdapter.notifyDataSetChanged();
                             result.setText(getString(R.string.expense_sum)+" "+sumExpense+" "+getString(R.string.money));
                         }else if (!searchByMarkups.getText().toString().equals("") && !searchByLocation.getText().toString().equals("")){
-                            String search_by_location = searchByLocation.getText().toString();
-                            String search_by_markups = searchByMarkups.getText().toString();
+                            search_by_location = searchByLocation.getText().toString();
+                            search_by_markups = searchByMarkups.getText().toString();
                             int sumExpense = db.sumByDateLocationMarkups(search_by_date,search_by_location,
                                     search_by_markups,Trade.EXPENSE);
                                     trades = (ArrayList<Trade>) db.searchByDateLocationMarkups(search_by_date,search_by_location,
@@ -174,7 +175,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                             tradeAdapter.notifyDataSetChanged();
                             result.setText(getString(R.string.expense_sum)+" "+sumExpense+" "+getString(R.string.money));
                         }else if (searchByLocation.getText().toString().equals("") && !searchByMarkups.getText().toString().equals("")){
-                            String search_by_markups = searchByMarkups.getText().toString();
+                            search_by_markups = searchByMarkups.getText().toString();
                             int sumExpense = db.sumByDateMarkups(search_by_date,search_by_markups,Trade.EXPENSE);
                             trades = (ArrayList<Trade>) db.searchByDateMarkups(search_by_date,search_by_markups,Trade.EXPENSE);
                             tradeAdapter = new TradeAdapter(getContext(), trades);
@@ -182,7 +183,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                             tradeAdapter.notifyDataSetChanged();
                             result.setText(getString(R.string.expense_sum)+" "+sumExpense+" "+getString(R.string.money));
                         }else{
-                            String search_by_location = searchByLocation.getText().toString();
+                            search_by_location = searchByLocation.getText().toString();
                             int sumExpense = db.sumByDateLocation(search_by_date,search_by_location,Trade.EXPENSE);
                             trades =(ArrayList<Trade>) db.searchByDateLocation(search_by_date,search_by_location,Trade.EXPENSE);
                             tradeAdapter = new TradeAdapter(getContext(), trades);
@@ -192,9 +193,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                         }
                     }
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                }else{
-                    searchByDate.setError(getString(R.string.required));
-                }
+
                 break;
             case R.id.search_by_date_et:
                 Calendar calendar = Calendar.getInstance();
@@ -294,11 +293,15 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         intent.putExtra("_location",location);
         intent.putExtra("_price",price+"");
         intent.putExtra("_date",date);
-        startActivity(intent);
-
+//        startActivity(intent);
+        startActivityForResult(intent,EDIT_INTENT);
 
     }
 
-
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == EDIT_INTENT){
+            tradeAdapter.notifyDataSetChanged();
+        }
+    }
 }

@@ -13,6 +13,7 @@ public interface Trade_I {
     List<Trade> searchByDateMarkups(String date,String markups,int status);
     List<Trade> searchByDateLocation(String date,String location,int status);
     List<Trade> searchByDateLocationMarkups(String date,String location,String markups,int status);
+    List<Trade> searchAll(int status);
     int sumTrades(String date, int status);
     int sumByDateMarkups(String date,String markups,int status);
     int sumByDateLocation(String date,String location,int status);

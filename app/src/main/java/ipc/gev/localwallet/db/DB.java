@@ -113,4 +113,12 @@ public class DB implements Trade_I {
         tradeDB.close();
         return trades;
     }
+
+    @Override
+    public List<Trade> searchAll(int status) {
+        tradeDB.open();
+        List<Trade> trades = tradeDB.searchAll(status);
+        tradeDB.close();
+        return trades;
+    }
 }
