@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -247,7 +249,13 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                             result.setText(getString(R.string.expense_sum)+" "+sumExpense+" "+getString(R.string.money));
                         }
                     }
-                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                ResultFragment resultFragment = new ResultFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.searchFragment,resultFragment);
+                fragmentTransaction.commit();
+//                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
 
                 break;
             case R.id.search_by_date_et:
@@ -269,7 +277,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     }
     private void bottomInit() {
         bottomSheetBehavior.setPeekHeight(0);
-        bottomSheetBehavior.setHideable(true);
 
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override

@@ -22,6 +22,7 @@
     <string name="about" >About</string>
     <string name="hy">Armenian</string>
     <string name="en">English</string>
+    <string name="result">Result</string>
 
     <string-array name="properties">
         <item>Date</item>
