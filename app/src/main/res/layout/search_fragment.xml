@@ -152,23 +152,27 @@
             android:background="@color/colorGreen"
             android:clipToPadding="true"
             android:fillViewport="true"
+            android:overScrollMode="always"
             app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             <ListView
+                android:isScrollContainer="true"
                 android:id="@+id/list_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="8"
                 />
             <TextView
                 android:id="@+id/result"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
             </LinearLayout>
+
 
 
         </android.support.v4.widget.NestedScrollView>

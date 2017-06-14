@@ -35,6 +35,10 @@ public class IncomeFragment extends Fragment implements View.OnClickListener {
     EditText location_et;
     EditText price_et;
     EditText date_et;
+    Calendar calendar = Calendar.getInstance();
+    int c_year = calendar.get(Calendar.YEAR);
+    int c_month = calendar.get(Calendar.MONTH);
+    int c_day = calendar.get(Calendar.DAY_OF_MONTH);
 
     @Nullable
     @Override
@@ -50,6 +54,10 @@ public class IncomeFragment extends Fragment implements View.OnClickListener {
         location_et = (EditText) view.findViewById(R.id.income_location);
         price_et = (EditText) view.findViewById(R.id.income_price);
         date_et = (EditText) view.findViewById(R.id.income_date);
+        String mm = (c_month+1)<10?"0" + (c_month+1):""+(c_month+1);
+        date_et.setText(new StringBuilder().append(c_day)
+                .append("/").append(mm).append("/").append(c_year)
+                .append(" "));
         date_et.setOnClickListener(this);
         markups_et.setOnClickListener(this);
         location_et.setOnClickListener(this);
@@ -83,10 +91,7 @@ public class IncomeFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.income_date:
-                Calendar calendar = Calendar.getInstance();
-                int c_year = calendar.get(Calendar.YEAR);
-                int c_month = calendar.get(Calendar.MONTH);
-                int c_day = calendar.get(Calendar.DAY_OF_MONTH);
+
                 new DatePickerDialog(getContext(), datePickerListener,c_year, c_month,c_day).show();
                 break;
             case R.id.income_markups:

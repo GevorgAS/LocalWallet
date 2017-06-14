@@ -31,6 +31,10 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener{
     EditText location_et;
     EditText price_et;
     EditText date_et;
+    Calendar calendar = Calendar.getInstance();
+    int c_year = calendar.get(Calendar.YEAR);
+    int c_month = calendar.get(Calendar.MONTH);
+    int c_day = calendar.get(Calendar.DAY_OF_MONTH);
 
     @Nullable
     @Override
@@ -40,11 +44,17 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener{
         save.setOnClickListener(this);
         layout = (RelativeLayout) view.findViewById(R.id.main_expense_layout);
         db = DB.getInstance(getContext());
+
         markups_et = (EditText) view.findViewById(R.id.expense_markups);
         location_et = (EditText) view.findViewById(R.id.expense_location);
         price_et = (EditText) view.findViewById(R.id.expense_price);
         date_et = (EditText) view.findViewById(R.id.expense_date);
+        String mm = (c_month+1)<10?"0" + (c_month+1):""+(c_month+1);
+        date_et.setText(new StringBuilder().append(c_day)
+                .append("/").append(mm).append("/").append(c_year)
+                .append(" "));
         date_et.setOnClickListener(this);
+
         return view;
     }
 
@@ -72,10 +82,7 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener{
                 break;
 
             case R.id.expense_date:
-                Calendar calendar = Calendar.getInstance();
-                int c_year = calendar.get(Calendar.YEAR);
-                int c_month = calendar.get(Calendar.MONTH);
-                int c_day = calendar.get(Calendar.DAY_OF_MONTH);
+
                 new DatePickerDialog(getContext(), datePickerListener,c_year, c_month,c_day).show();
                 break;
 

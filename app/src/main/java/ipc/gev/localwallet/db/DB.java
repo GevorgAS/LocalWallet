@@ -59,9 +59,41 @@ public class DB implements Trade_I {
     }
 
     @Override
-    public int sumTrades(String date, int status) {
+    public int sumByDate(String date, int status) {
         tradeDB.open();
-        int sum = tradeDB.sumTrades(date,status);
+        int sum = tradeDB.sumByDate(date,status);
+        tradeDB.close();
+        return sum;
+    }
+
+    @Override
+    public int sumAll(int status) {
+        tradeDB.open();
+        int sum = tradeDB.sumAll(status);
+        tradeDB.close();
+        return sum;
+    }
+
+    @Override
+    public int sumByMarkups(String markups, int status) {
+        tradeDB.open();
+        int sum = tradeDB.sumByMarkups(markups, status);
+        tradeDB.close();
+        return sum;
+    }
+
+    @Override
+    public int sumByLocation(String location, int status) {
+        tradeDB.open();
+        int sum = tradeDB.sumByLocation(location, status);
+        tradeDB.close();
+        return sum;
+    }
+
+    @Override
+    public int sumByMarkupsLocation(String location, String markups, int status) {
+        tradeDB.open();
+        int sum = tradeDB.sumByMarkupsLocation(location, markups, status);
         tradeDB.close();
         return sum;
     }
@@ -110,6 +142,30 @@ public class DB implements Trade_I {
     public List<Trade> searchByDateLocationMarkups(String date, String location, String markups, int status) {
         tradeDB.open();
         List<Trade> trades = tradeDB.searchByDateLocationMarkups(date, location, markups, status);
+        tradeDB.close();
+        return trades;
+    }
+
+    @Override
+    public List<Trade> searchByMarkups(String markups, int status) {
+        tradeDB.open();
+        List<Trade> trades = tradeDB.searchByMarkups(markups, status);
+        tradeDB.close();
+        return trades;
+    }
+
+    @Override
+    public List<Trade> searchByLocation(String location, int status) {
+        tradeDB.open();
+        List<Trade> trades = tradeDB.searchByLocation(location, status);
+        tradeDB.close();
+        return trades;
+    }
+
+    @Override
+    public List<Trade> searchByMarkupsLocation(String location, String markups, int status) {
+        tradeDB.open();
+        List<Trade> trades = tradeDB.searchByMarkupsLocation(location, markups, status);
         tradeDB.close();
         return trades;
     }
