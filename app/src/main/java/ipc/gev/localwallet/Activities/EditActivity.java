@@ -41,6 +41,7 @@ public class EditActivity extends AppCompatActivity {
         String price = intent.getStringExtra("_price");
         String id = intent.getStringExtra("_id");
 
+
         markups_et.setText(markups);
         location_et.setText(location);
         price_et.setText(price);
@@ -55,6 +56,7 @@ public class EditActivity extends AppCompatActivity {
             String date_edit = date_et.getText().toString();
             int price_edit = Integer.parseInt(price_et.getText().toString());
             db.updateTradeByID(currentID,markups_edit,location_edit,price_edit,date_edit);
+
             finish();
         }
 
@@ -117,10 +119,12 @@ public class EditActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id){
             case R.id.languages:
-
+                Intent lang_intent = new Intent(EditActivity.this,LanguagesActivity.class);
+                startActivity(lang_intent);
                 break;
             case R.id.about:
-
+                Intent about_intent = new Intent(EditActivity.this,AboutActivity.class);
+                startActivity(about_intent);
                 break;
         }
         return super.onOptionsItemSelected(item);

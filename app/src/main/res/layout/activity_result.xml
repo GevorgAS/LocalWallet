@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ListView
+        android:layout_margin="5dp"
+        android:id="@+id/list_view"
+        android:layout_weight="10"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
+    <TextView
+        android:gravity="center_vertical"
+        android:layout_margin="5dp"
+        android:background="@drawable/edit_text_background"
+        android:id="@+id/income_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"/>
+    <TextView
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:gravity="center_vertical"
+        android:layout_margin="5dp"
+        android:background="@drawable/edit_text_background"
+        android:id="@+id/expense_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <TextView
+
+        android:gravity="center"
+        android:textSize="12sp"
+        android:textColor="@color/colorAccent"
+        android:layout_margin="5dp"
+        android:background="@drawable/edit_text_background"
+        android:id="@+id/sum_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+</LinearLayout>

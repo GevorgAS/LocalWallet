@@ -18,10 +18,11 @@
         <activity android:name=".Activities.EditActivity" />
         <activity
             android:name=".Activities.AboutActivity"
-            android:parentActivityName=".Activities.MainActivity"/>
+            android:parentActivityName=".Activities.MainActivity" />
         <activity
             android:name=".Activities.LanguagesActivity"
-            android:parentActivityName=".Activities.MainActivity"/>
+            android:parentActivityName=".Activities.MainActivity" />
+        <activity android:name=".Activities.ResultActivity"></activity>
     </application>
 
 </manifest>

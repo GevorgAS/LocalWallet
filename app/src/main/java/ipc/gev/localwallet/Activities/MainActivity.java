@@ -16,16 +16,16 @@ import java.util.List;
 
 import ipc.gev.localwallet.Fragments.ExpenseFragment;
 import ipc.gev.localwallet.Fragments.IncomeFragment;
-import ipc.gev.localwallet.Fragments.ResultFragment;
 import ipc.gev.localwallet.Fragments.SearchFragment;
 import ipc.gev.localwallet.R;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
 
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
+    ViewPager viewPager;
+    TabLayout tabLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(R.drawable.income_icon);
         tabLayout.getTabAt(1).setIcon(R.drawable.expense_icon);
         tabLayout.getTabAt(2).setIcon(R.drawable.search_icon);
-        tabLayout.getTabAt(3).setIcon(R.drawable.result_icon);
+
 
 
     }
@@ -51,9 +51,10 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new IncomeFragment(),getString(R.string.income));
         adapter.addFragment(new ExpenseFragment(),getString(R.string.expense));
         adapter.addFragment(new SearchFragment(),getString(R.string.search));
-        adapter.addFragment(new ResultFragment(),getString(R.string.result));
+
         viewPager.setAdapter(adapter);
     }
+
 
     private class WalletPagerAdapter extends FragmentStatePagerAdapter {
         private final List<String> mFragmentTitleList = new ArrayList<>();
