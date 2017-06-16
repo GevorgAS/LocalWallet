@@ -6,9 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import ipc.gev.localwallet.db.table.TradeTable;
 
-/**
- * Created by Gevorg on 10.06.2017.
- */
+
 
 public class DB_Helper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "program.db";

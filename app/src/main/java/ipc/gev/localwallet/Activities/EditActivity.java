@@ -16,13 +16,13 @@ import ipc.gev.localwallet.R;
 import ipc.gev.localwallet.db.DB;
 
 public class EditActivity extends AppCompatActivity {
-    EditText markups_et;
-    EditText location_et;
-    EditText price_et;
-    EditText date_et;
+    private EditText markups_et;
+    private EditText location_et;
+    private EditText price_et;
+    private EditText date_et;
     int year,month,day;
-    DB db;
-    long currentID;
+    private DB db;
+    private long currentID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class EditActivity extends AppCompatActivity {
             String date_edit = date_et.getText().toString();
             int price_edit = Integer.parseInt(price_et.getText().toString());
             db.updateTradeByID(currentID,markups_edit,location_edit,price_edit,date_edit);
-
+            setResult(0b10);
             finish();
         }
 
@@ -66,7 +66,7 @@ public class EditActivity extends AppCompatActivity {
         int c_year = calendar.get(Calendar.YEAR);
         int c_month = calendar.get(Calendar.MONTH);
         int c_day = calendar.get(Calendar.DAY_OF_MONTH);
-        new DatePickerDialog(this, datePickerListener,c_year, c_month,c_day).show();
+        new DatePickerDialog(this,R.style.DialogTheme ,datePickerListener,c_year, c_month,c_day).show();
     }
 
 

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import ipc.gev.localwallet.R;
 import ipc.gev.localwallet.db.entity.Trade;
 
-public class TradeAdapter extends BaseAdapter {
+public class TradeAdapter extends BaseAdapter{
     private ArrayList<Trade> trades;
     private LayoutInflater inflater;
 
@@ -36,7 +36,7 @@ public class TradeAdapter extends BaseAdapter {
         return position;
     }
 
-    class Holder{
+    private class Holder{
         TextView price;
         TextView loc;
         TextView text;

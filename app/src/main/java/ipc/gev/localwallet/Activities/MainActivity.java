@@ -38,11 +38,10 @@ public class MainActivity extends AppCompatActivity{
         setupTabIcons();
     }
 
-    private void setupTabIcons() {
+    private void setupTabIcons() throws NullPointerException {
         tabLayout.getTabAt(0).setIcon(R.drawable.income_icon);
         tabLayout.getTabAt(1).setIcon(R.drawable.expense_icon);
         tabLayout.getTabAt(2).setIcon(R.drawable.search_icon);
-
 
 
     }

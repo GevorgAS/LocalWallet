@@ -14,7 +14,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 
 import java.util.Calendar;
@@ -92,7 +91,7 @@ public class IncomeFragment extends Fragment implements View.OnClickListener {
 
             case R.id.income_date:
 
-                new DatePickerDialog(getContext(), datePickerListener,c_year, c_month,c_day).show();
+                new DatePickerDialog(getContext(),R.style.DialogTheme,datePickerListener, c_year, c_month, c_day).show();
                 break;
             case R.id.income_markups:
 

@@ -20,13 +20,18 @@ import ipc.gev.localwallet.db.DB;
 import ipc.gev.localwallet.db.entity.Trade;
 
 public class ResultActivity extends AppCompatActivity {
-    ListView listView;
-    TextView income_tv;
-    TextView expense_tv;
-    TextView sum_tv;
-    DB db;
-    ArrayList<Trade> trades;
-    TradeAdapter tradeAdapter;
+    private ListView listView;
+    private TextView income_tv;
+    private TextView expense_tv;
+    private TextView sum_tv;
+    private DB db;
+    private ArrayList<Trade> trades;
+    private TradeAdapter tradeAdapter;
+    private String date;
+    private String location;
+    private String markups;
+    private boolean isChecked;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,11 +42,13 @@ public class ResultActivity extends AppCompatActivity {
         sum_tv = (TextView) findViewById(R.id.sum_text_view);
         db = DB.getInstance(this);
         Intent intent = getIntent();
-        String date = intent.getStringExtra("search_by_date");
-        String location = intent.getStringExtra("search_by_location");
-        String markups = intent.getStringExtra("search_by_markups");
-        boolean isChecked = intent.getExtras().getBoolean("isChecked");
-
+        date = intent.getStringExtra("search_by_date");
+        location = intent.getStringExtra("search_by_location");
+        markups = intent.getStringExtra("search_by_markups");
+        isChecked = intent.getExtras().getBoolean("isChecked");
+        trades = new ArrayList<>();
+        tradeAdapter = new TradeAdapter(this,trades);
+        listView.setAdapter(tradeAdapter);
         listInit(date,location,markups,isChecked);
         dialogTrade();
 
@@ -292,8 +299,9 @@ public class ResultActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
+        if (requestCode == 0b1100100 && resultCode == 0b10 ){
+            listInit(date,location,markups,isChecked);
+        }
     }
 
     private int getPrice(int position){

@@ -83,7 +83,7 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener{
 
             case R.id.expense_date:
 
-                new DatePickerDialog(getContext(), datePickerListener,c_year, c_month,c_day).show();
+                new DatePickerDialog(getContext(),R.style.DialogTheme,datePickerListener, c_year, c_month, c_day).show();
                 break;
 
         }

@@ -1,9 +1,8 @@
 package ipc.gev.localwallet.Fragments;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
+
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -84,7 +83,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     searchByLocation.setVisibility(View.VISIBLE);
                     button_click = true;
 
-                } else if (button_click) {
+                } else  {
                     location_clicked = false;
                     searchLocation.setBackgroundResource(R.drawable.button_shape_two);
                     searchLocation.setTextColor(getResources().getColor(R.color.colorPrimary));
@@ -99,7 +98,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     searchMarkups.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                     searchByMarkups.setVisibility(View.VISIBLE);
                     button_click = true;
-                } else if (button_click) {
+                } else {
                     markups_clicked  = false;
                     searchMarkups.setBackgroundResource(R.drawable.button_shape_two);
                     searchMarkups.setTextColor(getResources().getColor(R.color.colorPrimary));
@@ -127,7 +126,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     int c_year = calendar.get(Calendar.YEAR);
                     int c_month = calendar.get(Calendar.MONTH);
                     int c_day = calendar.get(Calendar.DAY_OF_MONTH);
-                    new DatePickerDialog(getContext(), datePickerListener, c_year, c_month, c_day).show();
+                    new DatePickerDialog(getContext(),R.style.DialogTheme,datePickerListener, c_year, c_month, c_day).show();
+
+
                     date_set = false;
                 }else{
                     searchByDate.setText("");
@@ -142,8 +143,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     private DatePickerDialog.OnDateSetListener datePickerListener
             = new DatePickerDialog.OnDateSetListener() {
 
+
         public void onDateSet(DatePicker view, int c_year,
                               int c_month, int c_day) {
+
 
             year = c_year;
             month = c_month;
