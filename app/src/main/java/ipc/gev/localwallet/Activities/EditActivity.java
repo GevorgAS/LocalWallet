@@ -2,6 +2,7 @@ package ipc.gev.localwallet.Activities;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -54,7 +56,7 @@ public class EditActivity extends AppCompatActivity {
             String markups_edit = markups_et.getText().toString();
             String location_edit = location_et.getText().toString();
             String date_edit = date_et.getText().toString();
-            int price_edit = Integer.parseInt(price_et.getText().toString());
+            long price_edit = Long.parseLong(price_et.getText().toString());
             db.updateTradeByID(currentID,markups_edit,location_edit,price_edit,date_edit);
             setResult(0b10);
             finish();
@@ -100,6 +102,12 @@ public class EditActivity extends AppCompatActivity {
         if (price_et.getText().toString().equals("")){
             price_et.setError(getString(R.string.required));
             isCorrect = false;
+        }else{
+            long price = Long.parseLong(price_et.getText().toString());
+            if (price > 999999999){
+                isCorrect=false;
+                Toast.makeText(this, getString(R.string.errorPrice), Toast.LENGTH_LONG).show();
+            }
         }
         if (date_et.getText().toString().equals("")){
             date_et.setError(getString(R.string.required));

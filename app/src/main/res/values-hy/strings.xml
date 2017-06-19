@@ -5,17 +5,17 @@
     <string name="expense" >Ելքեր</string>
     <string name="search" >Փնտրել</string>
     <string name="markups_hint">Նշումներ</string>
-    <string name="location_hint">Վայրը</string>
-    <string name="price_hint" >Գումարը</string>
+    <string name="location_hint">Վայր</string>
+    <string name="price_hint" >Գումար</string>
     <string name="save" >Պահպանել</string>
-    <string name="date_hint" >Օրը</string>
+    <string name="date_hint" >Օր</string>
     <string name="add_income" >Մուտքը հաջողությամբ ավելացվեց</string>
     <string name="add_expense" >Ելքը հաջողությամբ ավելացվեց</string>
     <string name="search_by_date" >Փնտրել ըստ օրվա</string>
     <string name="search_by_location" >Փնտրել ըստ վայրի</string>
     <string name="search_by_markups" >Փնտրել ըստ նշումների</string>
     <string name="searchBn" >Փնտրել</string>
-    <string name="required" >Դաշտը դատարկ է</string>
+    <string name="required" >Դատարկ դաշտ</string>
     <string name="expense_sum" >Ելքերի հանրագումարն է ՝ </string>
     <string name="income_sum" >Մուտքերի հանրագումարն է ՝ </string>
     <string name="money" >ՀՀ Դրամ</string>
@@ -23,6 +23,7 @@
     <string name="about">Հավելվածի մասին</string>
     <string name="hy">Հայերեն</string>
     <string name="en">Անգլերեն</string>
+    <string name="errorPrice">Խնդրում ենք գումարը ավելացնել ոչ ավել քան՝ 999.999.999</string>
 
     <string-array name="properties">
         <item>Օր</item>

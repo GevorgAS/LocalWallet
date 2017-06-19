@@ -4,7 +4,6 @@
 <RelativeLayout
     android:id="@+id/searchFragment"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -64,6 +63,7 @@
             android:orientation="vertical">
 
             <EditText
+                android:inputType="datetime"
                 android:focusable="false"
                 android:id="@+id/search_by_date_et"
                 android:layout_width="match_parent"
@@ -74,7 +74,8 @@
                 android:hint="@string/search_by_date"
                 android:minHeight="60dp"
                 android:minLines="2"
-                android:paddingLeft="5dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
                 android:paddingTop="2dp"
                 android:textSize="20sp"
 
@@ -90,7 +91,8 @@
                 android:hint="@string/search_by_location"
                 android:minHeight="60dp"
                 android:minLines="2"
-                android:paddingLeft="5dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
                 android:paddingTop="2dp"
                 android:textSize="20sp"
                 android:visibility="gone"
@@ -108,22 +110,35 @@
                 android:hint="@string/search_by_markups"
                 android:minHeight="60dp"
                 android:minLines="2"
-                android:paddingLeft="5dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
                 android:paddingTop="3dp"
                 android:textSize="20sp"
                 android:visibility="gone" />
 
 
-            <Switch
-                android:id="@+id/switch_trade"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center|bottom"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="20dp"
-                android:thumb="@drawable/custom_thumb" />
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <CheckBox
+                    android:id="@+id/income_chb"
+                    android:layout_margin="10dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@string/income"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <CheckBox
+                    android:id="@+id/expense_chb"
+                    android:layout_margin="10dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@string/expense"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/search_bt"

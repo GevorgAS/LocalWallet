@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -67,7 +68,7 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener{
                 if (validate()) {
                     String markups = markups_et.getText().toString();
                     String location = location_et.getText().toString();
-                    int price = Integer.parseInt(price_et.getText().toString());
+                    long price = Long.parseLong(price_et.getText().toString());
                     String date = date_et.getText().toString();
                     Trade trade = new Trade(markups, location, price, date, Trade.EXPENSE);
                     db.createTrade(trade);
@@ -91,19 +92,27 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener{
     private boolean validate(){
         boolean isCorrect = true;
         if (markups_et.getText().toString().equals("")){
-            markups_et.setError("Required");
+            markups_et.setError(getString(R.string.required));
             isCorrect = false;
         }
         if (location_et.getText().toString().equals("")){
-            location_et.setError("Required");
+            location_et.setError(getString(R.string.required));
             isCorrect = false;
         }
         if (price_et.getText().toString().equals("")){
-            price_et.setError("Required");
+            price_et.setError(getString(R.string.required));
             isCorrect = false;
+        }else{
+            long price = Long.parseLong(price_et.getText().toString());
+            if (price > 999999999){
+                isCorrect=false;
+                Snackbar snackbar = Snackbar
+                        .make(layout, R.string.errorPrice, Snackbar.LENGTH_LONG);
+                snackbar.show();
+            }
         }
         if (date_et.getText().toString().equals("")){
-            date_et.setError("Required");
+            date_et.setError(getString(R.string.required));
             isCorrect = false;
         }
         return isCorrect;

@@ -61,13 +61,20 @@
         android:orientation="vertical">
 
         <TextView
+            android:gravity="top"
             android:id="@+id/adapter_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:textColor="@color/colorPrimary"
-            android:textSize="12sp"
+            android:textSize="13sp"
             tools:text="Mar 6, 2010" />
+        <ImageView
+            android:id="@+id/image_icon"
+            android:layout_gravity="center"
+            android:src="@drawable/expense_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
 
     </LinearLayout>

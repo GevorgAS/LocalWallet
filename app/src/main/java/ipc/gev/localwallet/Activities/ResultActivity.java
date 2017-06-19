@@ -30,7 +30,8 @@ public class ResultActivity extends AppCompatActivity {
     private String date;
     private String location;
     private String markups;
-    private boolean isChecked;
+    private boolean income_chb;
+    private boolean expense_chb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,191 +46,283 @@ public class ResultActivity extends AppCompatActivity {
         date = intent.getStringExtra("search_by_date");
         location = intent.getStringExtra("search_by_location");
         markups = intent.getStringExtra("search_by_markups");
-        isChecked = intent.getExtras().getBoolean("isChecked");
+        income_chb = intent.getExtras().getBoolean("income_chb");
+        expense_chb = intent.getExtras().getBoolean("expense_chb");
+
         trades = new ArrayList<>();
         tradeAdapter = new TradeAdapter(this,trades);
         listView.setAdapter(tradeAdapter);
-        listInit(date,location,markups,isChecked);
+        listInit(date,location,markups,income_chb,expense_chb);
         dialogTrade();
 
     }
-    private void listInit(String search_by_date, String search_by_location, String search_by_markups, boolean isChecked) {
-        if (!isChecked) {
+    private void listInit(String search_by_date, String search_by_location, String search_by_markups, boolean income_chb,boolean expense_chb) {
+        if (income_chb && !expense_chb) {
             if (search_by_markups.equals("") && search_by_location.equals("") && !search_by_date.equals("")) {
-                int sumExpense = db.sumByDate(search_by_date, Trade.EXPENSE);
-                int sumIncome = db.sumByDate(search_by_date, Trade.INCOME);
+                long sumExpense = db.sumByDate(search_by_date, Trade.EXPENSE);
+                long sumIncome = db.sumByDate(search_by_date, Trade.INCOME);
                 trades = (ArrayList<Trade>) db.searchByDate(search_by_date, Trade.INCOME);
                 tradeAdapter = new TradeAdapter(this, trades);
                 listView.setAdapter(tradeAdapter);
                 tradeAdapter.notifyDataSetChanged();
-                int result = sumIncome - sumExpense;
+                long result = sumIncome - sumExpense;
                 income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
                 expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
                 sum_tv.setText(result + " " + getString(R.string.money));
             } else if (!search_by_markups.equals("") && !search_by_location.equals("") && !search_by_date.equals("")) {
-                int sumExpense = db.sumByDateLocationMarkups(search_by_date, search_by_location, search_by_markups, Trade.EXPENSE);
-                int sumIncome = db.sumByDateLocationMarkups(search_by_date, search_by_location, search_by_markups, Trade.INCOME);
+                long sumExpense = db.sumByDateLocationMarkups(search_by_date, search_by_location, search_by_markups, Trade.EXPENSE);
+                long sumIncome = db.sumByDateLocationMarkups(search_by_date, search_by_location, search_by_markups, Trade.INCOME);
                 trades = (ArrayList<Trade>) db.searchByDateLocationMarkups(search_by_date, search_by_location, search_by_markups, Trade.INCOME);
                 tradeAdapter = new TradeAdapter(this, trades);
                 listView.setAdapter(tradeAdapter);
                 tradeAdapter.notifyDataSetChanged();
-                int result = sumIncome - sumExpense;
+                long result = sumIncome - sumExpense;
                 income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
                 expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
                 sum_tv.setText(result + " " + getString(R.string.money));
             } else if (search_by_location.equals("") && !search_by_markups.equals("") && !search_by_date.equals("")) {
-                int sumExpense = db.sumByDateMarkups(search_by_date, search_by_markups, Trade.EXPENSE);
-                int sumIncome = db.sumByDateMarkups(search_by_date, search_by_markups, Trade.INCOME);
+                long sumExpense = db.sumByDateMarkups(search_by_date, search_by_markups, Trade.EXPENSE);
+                long sumIncome = db.sumByDateMarkups(search_by_date, search_by_markups, Trade.INCOME);
                 trades = (ArrayList<Trade>) db.searchByDateMarkups(search_by_date, search_by_markups, Trade.INCOME);
                 tradeAdapter = new TradeAdapter(this, trades);
                 listView.setAdapter(tradeAdapter);
                 tradeAdapter.notifyDataSetChanged();
-                int result = sumIncome - sumExpense;
+                long result = sumIncome - sumExpense;
                 income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
                 expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
                 sum_tv.setText(result + " " + getString(R.string.money));
             } else if (search_by_markups.equals("") && !search_by_location.equals("") && !search_by_date.equals("")) {
-                int sumExpense = db.sumByDateLocation(search_by_date, search_by_location, Trade.EXPENSE);
-                int sumIncome = db.sumByDateLocation(search_by_date, search_by_location, Trade.INCOME);
+                long sumExpense = db.sumByDateLocation(search_by_date, search_by_location, Trade.EXPENSE);
+                long sumIncome = db.sumByDateLocation(search_by_date, search_by_location, Trade.INCOME);
                 trades = (ArrayList<Trade>) db.searchByDateLocation(search_by_date, search_by_location, Trade.INCOME);
                 tradeAdapter = new TradeAdapter(this, trades);
                 listView.setAdapter(tradeAdapter);
                 tradeAdapter.notifyDataSetChanged();
-                int result = sumIncome - sumExpense;
+                long result = sumIncome - sumExpense;
                 income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
                 expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
                 sum_tv.setText(result + " " + getString(R.string.money));
             } else if (search_by_date.equals("") && search_by_location.equals("") && search_by_markups.equals("")) {
-                int sumExpense = db.sumAll(Trade.EXPENSE);
-                int sumIncome = db.sumAll(Trade.INCOME);
+                long sumExpense = db.sumAll(Trade.EXPENSE);
+                long sumIncome = db.sumAll(Trade.INCOME);
                 trades = (ArrayList<Trade>) db.searchAll(Trade.INCOME);
                 tradeAdapter = new TradeAdapter(this, trades);
                 listView.setAdapter(tradeAdapter);
                 tradeAdapter.notifyDataSetChanged();
-                int result = sumIncome - sumExpense;
+                long result = sumIncome - sumExpense;
                 income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
                 expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
                 sum_tv.setText(result + " " + getString(R.string.money));
             } else if (search_by_date.equals("") && !search_by_location.equals("") && search_by_markups.equals("")) {
-                int sumExpense = db.sumByLocation(search_by_location, Trade.EXPENSE);
-                int sumIncome = db.sumByLocation(search_by_location, Trade.INCOME);
+                long sumExpense = db.sumByLocation(search_by_location, Trade.EXPENSE);
+                long sumIncome = db.sumByLocation(search_by_location, Trade.INCOME);
                 trades = (ArrayList<Trade>) db.searchByLocation(search_by_location, Trade.INCOME);
                 tradeAdapter = new TradeAdapter(this, trades);
                 listView.setAdapter(tradeAdapter);
                 tradeAdapter.notifyDataSetChanged();
-                int result = sumIncome - sumExpense;
+                long result = sumIncome - sumExpense;
                 income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
                 expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
                 sum_tv.setText(result + " " + getString(R.string.money));
             } else if (search_by_date.equals("") && search_by_location.equals("") && !search_by_markups.equals("")) {
-                int sumExpense = db.sumByMarkups(search_by_markups, Trade.EXPENSE);
-                int sumIncome = db.sumByMarkups(search_by_markups, Trade.INCOME);
+                long sumExpense = db.sumByMarkups(search_by_markups, Trade.EXPENSE);
+                long sumIncome = db.sumByMarkups(search_by_markups, Trade.INCOME);
                 trades = (ArrayList<Trade>) db.searchByMarkups(search_by_markups, Trade.INCOME);
                 tradeAdapter = new TradeAdapter(this, trades);
                 listView.setAdapter(tradeAdapter);
                 tradeAdapter.notifyDataSetChanged();
-                int result = sumIncome - sumExpense;
+                long result = sumIncome - sumExpense;
                 income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
                 expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
                 sum_tv.setText(result + " " + getString(R.string.money));
             } else if (search_by_date.equals("") && !search_by_location.equals("") && !search_by_markups.equals("")) {
-                int sumExpense = db.sumByMarkupsLocation(search_by_location, search_by_markups, Trade.EXPENSE);
-                int sumIncome = db.sumByMarkupsLocation(search_by_location, search_by_markups, Trade.INCOME);
+                long sumExpense = db.sumByMarkupsLocation(search_by_location, search_by_markups, Trade.EXPENSE);
+                long sumIncome = db.sumByMarkupsLocation(search_by_location, search_by_markups, Trade.INCOME);
                 trades = (ArrayList<Trade>) db.searchByMarkupsLocation(search_by_location, search_by_markups, Trade.INCOME);
                 tradeAdapter = new TradeAdapter(this, trades);
                 listView.setAdapter(tradeAdapter);
                 tradeAdapter.notifyDataSetChanged();
-                int result = sumIncome - sumExpense;
+                long result = sumIncome - sumExpense;
                 income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
                 expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
                 sum_tv.setText(result + " " + getString(R.string.money));
             }
-        } else {
+        } else if (expense_chb && !income_chb){
             if (search_by_markups.equals("") && search_by_location.equals("") && !search_by_date.equals("")) {
-                int sumIncome = db.sumByDate(search_by_date, Trade.INCOME);
-                int sumExpense = db.sumByDate(search_by_date, Trade.EXPENSE);
+                long sumIncome = db.sumByDate(search_by_date, Trade.INCOME);
+                long sumExpense = db.sumByDate(search_by_date, Trade.EXPENSE);
                 trades = (ArrayList<Trade>) db.searchByDate(search_by_date, Trade.EXPENSE);
                 tradeAdapter = new TradeAdapter(this, trades);
                 listView.setAdapter(tradeAdapter);
                 tradeAdapter.notifyDataSetChanged();
-                int result = sumIncome - sumExpense;
+                long result = sumIncome - sumExpense;
                 income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
                 expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
                 sum_tv.setText(result + " " + getString(R.string.money));
             } else if (!search_by_markups.equals("") && !search_by_location.equals("") && !search_by_date.equals("")) {
-                int sumIncome = db.sumByDateLocationMarkups(search_by_date, search_by_location, search_by_markups, Trade.INCOME);
-                int sumExpense = db.sumByDateLocationMarkups(search_by_date, search_by_location, search_by_markups, Trade.EXPENSE);
+                long sumIncome = db.sumByDateLocationMarkups(search_by_date, search_by_location, search_by_markups, Trade.INCOME);
+                long sumExpense = db.sumByDateLocationMarkups(search_by_date, search_by_location, search_by_markups, Trade.EXPENSE);
                 trades = (ArrayList<Trade>) db.searchByDateLocationMarkups(search_by_date, search_by_location, search_by_markups, Trade.EXPENSE);
                 tradeAdapter = new TradeAdapter(this, trades);
                 listView.setAdapter(tradeAdapter);
                 tradeAdapter.notifyDataSetChanged();
-                int result = sumIncome - sumExpense;
+                long result = sumIncome - sumExpense;
                 income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
                 expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
                 sum_tv.setText(result + " " + getString(R.string.money));
             } else if (search_by_location.equals("") && !search_by_markups.equals("") && !search_by_date.equals("")) {
-                int sumIncome = db.sumByDateMarkups(search_by_date, search_by_markups, Trade.INCOME);
-                int sumExpense = db.sumByDateMarkups(search_by_date, search_by_markups, Trade.EXPENSE);
+                long sumIncome = db.sumByDateMarkups(search_by_date, search_by_markups, Trade.INCOME);
+                long sumExpense = db.sumByDateMarkups(search_by_date, search_by_markups, Trade.EXPENSE);
                 trades = (ArrayList<Trade>) db.searchByDateMarkups(search_by_date, search_by_markups, Trade.EXPENSE);
                 tradeAdapter = new TradeAdapter(this, trades);
                 listView.setAdapter(tradeAdapter);
                 tradeAdapter.notifyDataSetChanged();
-                int result = sumIncome - sumExpense;
+                long result = sumIncome - sumExpense;
                 income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
                 expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
                 sum_tv.setText(result + " " + getString(R.string.money));
             } else if (search_by_markups.equals("") && !search_by_location.equals("") && !search_by_date.equals("")) {
-                int sumExpense = db.sumByDateLocation(search_by_date, search_by_location, Trade.EXPENSE);
-                int sumIncome = db.sumByDateLocation(search_by_date, search_by_location, Trade.INCOME);
+                long sumExpense = db.sumByDateLocation(search_by_date, search_by_location, Trade.EXPENSE);
+                long sumIncome = db.sumByDateLocation(search_by_date, search_by_location, Trade.INCOME);
                 trades = (ArrayList<Trade>) db.searchByDateLocation(search_by_date, search_by_location, Trade.EXPENSE);
                 tradeAdapter = new TradeAdapter(this, trades);
                 listView.setAdapter(tradeAdapter);
                 tradeAdapter.notifyDataSetChanged();
-                int result = sumIncome - sumExpense;
+                long result = sumIncome - sumExpense;
                 income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
                 expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
                 sum_tv.setText(result + " " + getString(R.string.money));
             } else if (search_by_date.equals("") && search_by_location.equals("") && search_by_markups.equals("")) {
-                int sumIncome = db.sumAll(Trade.INCOME);
-                int sumExpense = db.sumAll(Trade.EXPENSE);
+                long sumIncome = db.sumAll(Trade.INCOME);
+                long sumExpense = db.sumAll(Trade.EXPENSE);
                 trades = (ArrayList<Trade>) db.searchAll(Trade.EXPENSE);
                 tradeAdapter = new TradeAdapter(this, trades);
                 listView.setAdapter(tradeAdapter);
                 tradeAdapter.notifyDataSetChanged();
-                int result = sumIncome - sumExpense;
+                long result = sumIncome - sumExpense;
                 income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
                 expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
                 sum_tv.setText(result + " " + getString(R.string.money));
             } else if (search_by_date.equals("") && !search_by_location.equals("") && search_by_markups.equals("")) {
-                int sumIncome = db.sumByLocation(search_by_location, Trade.INCOME);
-                int sumExpense = db.sumByLocation(search_by_location, Trade.EXPENSE);
+                long sumIncome = db.sumByLocation(search_by_location, Trade.INCOME);
+                long sumExpense = db.sumByLocation(search_by_location, Trade.EXPENSE);
                 trades = (ArrayList<Trade>) db.searchByLocation(search_by_location, Trade.EXPENSE);
                 tradeAdapter = new TradeAdapter(this, trades);
                 listView.setAdapter(tradeAdapter);
                 tradeAdapter.notifyDataSetChanged();
-                int result = sumIncome - sumExpense;
+                long result = sumIncome - sumExpense;
                 income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
                 expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
                 sum_tv.setText(result + " " + getString(R.string.money));
             } else if (search_by_date.equals("") && search_by_location.equals("") && !search_by_markups.equals("")) {
-                int sumIncome = db.sumByMarkups(search_by_markups, Trade.INCOME);
-                int sumExpense = db.sumByMarkups(search_by_markups, Trade.EXPENSE);
+                long sumIncome = db.sumByMarkups(search_by_markups, Trade.INCOME);
+                long sumExpense = db.sumByMarkups(search_by_markups, Trade.EXPENSE);
                 trades = (ArrayList<Trade>) db.searchByMarkups(search_by_markups, Trade.EXPENSE);
                 tradeAdapter = new TradeAdapter(this, trades);
                 listView.setAdapter(tradeAdapter);
                 tradeAdapter.notifyDataSetChanged();
-                int result = sumIncome - sumExpense;
+                long result = sumIncome - sumExpense;
                 income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
                 expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
                 sum_tv.setText(result + " " + getString(R.string.money));
             } else if (search_by_date.equals("") && !search_by_location.equals("") && !search_by_markups.equals("")) {
-                int sumIncome = db.sumByMarkupsLocation(search_by_location, search_by_markups, Trade.INCOME);
-                int sumExpense = db.sumByMarkupsLocation(search_by_location, search_by_markups, Trade.EXPENSE);
+                long sumIncome = db.sumByMarkupsLocation(search_by_location, search_by_markups, Trade.INCOME);
+                long sumExpense = db.sumByMarkupsLocation(search_by_location, search_by_markups, Trade.EXPENSE);
                 trades = (ArrayList<Trade>) db.searchByMarkupsLocation(search_by_location, search_by_markups, Trade.EXPENSE);
                 tradeAdapter = new TradeAdapter(this, trades);
                 listView.setAdapter(tradeAdapter);
                 tradeAdapter.notifyDataSetChanged();
-                int result = sumIncome - sumExpense;
+                long result = sumIncome - sumExpense;
+                income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
+                expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
+                sum_tv.setText(result + " " + getString(R.string.money));
+            }
+        }else{
+            if (search_by_markups.equals("") && search_by_location.equals("") && !search_by_date.equals("")) {
+                long sumIncome = db.sumByDate(search_by_date, Trade.INCOME);
+                long sumExpense = db.sumByDate(search_by_date, Trade.EXPENSE);
+                trades = (ArrayList<Trade>) db.getAllByDate(search_by_date);
+                tradeAdapter = new TradeAdapter(this, trades);
+                listView.setAdapter(tradeAdapter);
+                tradeAdapter.notifyDataSetChanged();
+                long result = sumIncome - sumExpense;
+                income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
+                expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
+                sum_tv.setText(result + " " + getString(R.string.money));
+            } else if (!search_by_markups.equals("") && !search_by_location.equals("") && !search_by_date.equals("")) {
+                long sumIncome = db.sumByDateLocationMarkups(search_by_date, search_by_location, search_by_markups, Trade.INCOME);
+                long sumExpense = db.sumByDateLocationMarkups(search_by_date, search_by_location, search_by_markups, Trade.EXPENSE);
+                trades = (ArrayList<Trade>) db.getAllByDateLocationMarkups(search_by_date, search_by_location, search_by_markups);
+                tradeAdapter = new TradeAdapter(this, trades);
+                listView.setAdapter(tradeAdapter);
+                tradeAdapter.notifyDataSetChanged();
+                long result = sumIncome - sumExpense;
+                income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
+                expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
+                sum_tv.setText(result + " " + getString(R.string.money));
+            } else if (search_by_location.equals("") && !search_by_markups.equals("") && !search_by_date.equals("")) {
+                long sumIncome = db.sumByDateMarkups(search_by_date, search_by_markups, Trade.INCOME);
+                long sumExpense = db.sumByDateMarkups(search_by_date, search_by_markups, Trade.EXPENSE);
+                trades = (ArrayList<Trade>) db.getAllByDateMarkups(search_by_date, search_by_markups);
+                tradeAdapter = new TradeAdapter(this, trades);
+                listView.setAdapter(tradeAdapter);
+                tradeAdapter.notifyDataSetChanged();
+                long result = sumIncome - sumExpense;
+                income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
+                expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
+                sum_tv.setText(result + " " + getString(R.string.money));
+            } else if (search_by_markups.equals("") && !search_by_location.equals("") && !search_by_date.equals("")) {
+                long sumExpense = db.sumByDateLocation(search_by_date, search_by_location, Trade.EXPENSE);
+                long sumIncome = db.sumByDateLocation(search_by_date, search_by_location, Trade.INCOME);
+                trades = (ArrayList<Trade>) db.getAllByDateLocation(search_by_date, search_by_location);
+                tradeAdapter = new TradeAdapter(this, trades);
+                listView.setAdapter(tradeAdapter);
+                tradeAdapter.notifyDataSetChanged();
+                long result = sumIncome - sumExpense;
+                income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
+                expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
+                sum_tv.setText(result + " " + getString(R.string.money));
+            } else if (search_by_date.equals("") && search_by_location.equals("") && search_by_markups.equals("")) {
+                long sumIncome = db.sumAll(Trade.INCOME);
+                long sumExpense = db.sumAll(Trade.EXPENSE);
+                trades = (ArrayList<Trade>) db.getAll();
+                tradeAdapter = new TradeAdapter(this, trades);
+                listView.setAdapter(tradeAdapter);
+                tradeAdapter.notifyDataSetChanged();
+                long result = sumIncome - sumExpense;
+                income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
+                expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
+                sum_tv.setText(result + " " + getString(R.string.money));
+            } else if (search_by_date.equals("") && !search_by_location.equals("") && search_by_markups.equals("")) {
+                long sumIncome = db.sumByLocation(search_by_location, Trade.INCOME);
+                long sumExpense = db.sumByLocation(search_by_location, Trade.EXPENSE);
+                trades = (ArrayList<Trade>) db.getAllByLocation(search_by_location);
+                tradeAdapter = new TradeAdapter(this, trades);
+                listView.setAdapter(tradeAdapter);
+                tradeAdapter.notifyDataSetChanged();
+                long result = sumIncome - sumExpense;
+                income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
+                expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
+                sum_tv.setText(result + " " + getString(R.string.money));
+            } else if (search_by_date.equals("") && search_by_location.equals("") && !search_by_markups.equals("")) {
+                long sumIncome = db.sumByMarkups(search_by_markups, Trade.INCOME);
+                long sumExpense = db.sumByMarkups(search_by_markups, Trade.EXPENSE);
+                trades = (ArrayList<Trade>) db.getAllByMarkups(search_by_markups);
+                tradeAdapter = new TradeAdapter(this, trades);
+                listView.setAdapter(tradeAdapter);
+                tradeAdapter.notifyDataSetChanged();
+                long result = sumIncome - sumExpense;
+                income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
+                expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
+                sum_tv.setText(result + " " + getString(R.string.money));
+            } else if (search_by_date.equals("") && !search_by_location.equals("") && !search_by_markups.equals("")) {
+                long sumIncome = db.sumByMarkupsLocation(search_by_location, search_by_markups, Trade.INCOME);
+                long sumExpense = db.sumByMarkupsLocation(search_by_location, search_by_markups, Trade.EXPENSE);
+                trades = (ArrayList<Trade>) db.getAllByLocationMarkups(search_by_location, search_by_markups);
+                tradeAdapter = new TradeAdapter(this, trades);
+                listView.setAdapter(tradeAdapter);
+                tradeAdapter.notifyDataSetChanged();
+                long result = sumIncome - sumExpense;
                 income_tv.setText(getString(R.string.income_sum) + " " + sumIncome + " " + getString(R.string.money));
                 expense_tv.setText(getString(R.string.expense_sum) + " " + sumExpense + " " + getString(R.string.money));
                 sum_tv.setText(result + " " + getString(R.string.money));
@@ -242,7 +335,7 @@ public class ResultActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 String currentLocation = getLocation(position);
                 String currentMarkups = getMarkups(position);
-                int currentPrice = getPrice(position);
+                long currentPrice = getPrice(position);
                 String currentDate = getDate(position);
                 String m = getResources().getString(R.string.money);
                 String message = String.valueOf(currentPrice) + " " + m + "\n" + currentMarkups + "\n" + currentDate;
@@ -285,7 +378,7 @@ public class ResultActivity extends AppCompatActivity {
         String markups = trade.getMarkups();
         String location = trade.getLocation();
         String date = trade.getDate();
-        int price = trade.getPrice();
+        long price = trade.getPrice();
 
         Intent intent = new Intent(ResultActivity.this, EditActivity.class);
         intent.putExtra("_id",id+"");
@@ -300,11 +393,11 @@ public class ResultActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 0b1100100 && resultCode == 0b10 ){
-            listInit(date,location,markups,isChecked);
+            listInit(date,location,markups,income_chb,expense_chb);
         }
     }
 
-    private int getPrice(int position){
+    private long getPrice(int position){
         Trade trade = trades.get(position);
         return trade.getPrice();
     }

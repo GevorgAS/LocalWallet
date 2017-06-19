@@ -51,6 +51,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
             <EditText
+                android:windowSoftInputMode="stateHidden"
                 android:layout_weight="8"
                 android:id="@+id/income_location"
                 android:layout_width="0dp"
@@ -76,6 +77,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
             <EditText
+                android:windowSoftInputMode="stateHidden"
                 android:layout_weight="8"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
@@ -102,6 +104,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
             <EditText
+                android:windowSoftInputMode="stateUnspecified"
                 android:inputType="datetime"
                 android:layout_weight="8"
                 android:paddingStart="5dp"

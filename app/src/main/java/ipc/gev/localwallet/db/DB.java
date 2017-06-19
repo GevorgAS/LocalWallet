@@ -52,72 +52,72 @@ public class DB implements Trade_I {
     }
 
     @Override
-    public void updateTradeByID(long id, String text, String location, int price, String date) {
+    public void updateTradeByID(long id, String text, String location, long price, String date) {
         tradeDB.open();
         tradeDB.updateTradeByID(id,text,location,price,date);
         tradeDB.close();
     }
 
     @Override
-    public int sumByDate(String date, int status) {
+    public long sumByDate(String date, int status) {
         tradeDB.open();
-        int sum = tradeDB.sumByDate(date,status);
+        long sum = tradeDB.sumByDate(date,status);
         tradeDB.close();
         return sum;
     }
 
     @Override
-    public int sumAll(int status) {
+    public long sumAll(int status) {
         tradeDB.open();
-        int sum = tradeDB.sumAll(status);
+        long sum = tradeDB.sumAll(status);
         tradeDB.close();
         return sum;
     }
 
     @Override
-    public int sumByMarkups(String markups, int status) {
+    public long sumByMarkups(String markups, int status) {
         tradeDB.open();
-        int sum = tradeDB.sumByMarkups(markups, status);
+        long sum = tradeDB.sumByMarkups(markups, status);
         tradeDB.close();
         return sum;
     }
 
     @Override
-    public int sumByLocation(String location, int status) {
+    public long sumByLocation(String location, int status) {
         tradeDB.open();
-        int sum = tradeDB.sumByLocation(location, status);
+        long sum = tradeDB.sumByLocation(location, status);
         tradeDB.close();
         return sum;
     }
 
     @Override
-    public int sumByMarkupsLocation(String location, String markups, int status) {
+    public long sumByMarkupsLocation(String location, String markups, int status) {
         tradeDB.open();
-        int sum = tradeDB.sumByMarkupsLocation(location, markups, status);
+        long sum = tradeDB.sumByMarkupsLocation(location, markups, status);
         tradeDB.close();
         return sum;
     }
 
     @Override
-    public int sumByDateMarkups(String date, String markups, int status) {
+    public long sumByDateMarkups(String date, String markups, int status) {
         tradeDB.open();
-        int sum = tradeDB.sumByDateMarkups(date, markups, status);
+        long sum = tradeDB.sumByDateMarkups(date, markups, status);
         tradeDB.close();
         return sum;
     }
 
     @Override
-    public int sumByDateLocation(String date, String location, int status) {
+    public long sumByDateLocation(String date, String location, int status) {
         tradeDB.open();
-        int sum = tradeDB.sumByDateLocation(date, location, status);
+        long sum = tradeDB.sumByDateLocation(date, location, status);
         tradeDB.close();
         return sum;
     }
 
     @Override
-    public int sumByDateLocationMarkups(String date, String location, String markups, int status) {
+    public long sumByDateLocationMarkups(String date, String location, String markups, int status) {
         tradeDB.open();
-        int sum = tradeDB.sumByDateLocationMarkups(date, location, markups, status);
+        long sum = tradeDB.sumByDateLocationMarkups(date, location, markups, status);
         tradeDB.close();
         return sum;
     }
@@ -174,6 +174,70 @@ public class DB implements Trade_I {
     public List<Trade> searchAll(int status) {
         tradeDB.open();
         List<Trade> trades = tradeDB.searchAll(status);
+        tradeDB.close();
+        return trades;
+    }
+
+    @Override
+    public List<Trade> getAll() {
+        tradeDB.open();
+        List<Trade> trades = tradeDB.getAll();
+        tradeDB.close();
+        return trades;
+    }
+
+    @Override
+    public List<Trade> getAllByDate(String date) {
+        tradeDB.open();
+        List<Trade> trades = tradeDB.getAllByDate(date);
+        tradeDB.close();
+        return trades;
+    }
+
+    @Override
+    public List<Trade> getAllByDateMarkups(String date, String markups) {
+        tradeDB.open();
+        List<Trade> trades = tradeDB.getAllByDateMarkups(date, markups);
+        tradeDB.close();
+        return trades;
+    }
+
+    @Override
+    public List<Trade> getAllByDateLocation(String date, String location) {
+        tradeDB.open();
+        List<Trade> trades = tradeDB.getAllByDateLocation(date, location);
+        tradeDB.close();
+        return trades;
+    }
+
+    @Override
+    public List<Trade> getAllByDateLocationMarkups(String date, String location, String markups) {
+        tradeDB.open();
+        List<Trade> trades = tradeDB.getAllByDateLocationMarkups(date, location, markups);
+        tradeDB.close();
+        return trades;
+    }
+
+    @Override
+    public List<Trade> getAllByMarkups(String markups) {
+        tradeDB.open();
+        List<Trade> trades = tradeDB.getAllByMarkups(markups);
+        tradeDB.close();
+        return trades;
+    }
+
+    @Override
+    public List<Trade> getAllByLocation(String location) {
+        tradeDB.open();
+        List<Trade> trades = tradeDB.getAllByLocation(location);
+        tradeDB.close();
+        return trades;
+    }
+
+    @Override
+    public List<Trade> getAllByLocationMarkups(String location, String markups) {
+        tradeDB.open();
+        List<Trade> trades = tradeDB.getAllByLocationMarkups(location, markups);
         tradeDB.close();
         return trades;
     }

@@ -23,6 +23,7 @@
     <string name="hy">Armenian</string>
     <string name="en">English</string>
     <string name="result">Result</string>
+    <string name="errorPrice">Please Price input less than 999.999.999 </string>
 
     <string-array name="properties">
         <item>Date</item>

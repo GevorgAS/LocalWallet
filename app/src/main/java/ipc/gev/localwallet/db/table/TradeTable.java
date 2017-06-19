@@ -15,7 +15,5 @@ public class TradeTable {
             COLUMN_ID+" integer primary key autoincrement ," +
             COLUMN_MARKUPS +" text , "+ COLUMN_LOCATION+" text, " +
             COLUMN_PRICE+ " integer , " + COLUMN_DATE + " text , " + COLUMN_STATUS+" int ) ; ";
-    public static final String[] allColumns(){
-        return new String[]{COLUMN_ID, COLUMN_MARKUPS,COLUMN_LOCATION,COLUMN_PRICE,COLUMN_DATE,COLUMN_STATUS};
-    }
+
 }

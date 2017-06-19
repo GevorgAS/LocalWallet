@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Switch;
 
 import java.util.Calendar;
 
@@ -23,17 +23,15 @@ import ipc.gev.localwallet.R;
 
 public class SearchFragment extends Fragment implements View.OnClickListener {
 
-    int year;
-    int month;
-    int day;
-    Button searchDate, searchLocation, searchMarkups, search_bt;
-    EditText searchByDate, searchByLocation, searchByMarkups;
+     Button searchDate, searchLocation, searchMarkups, search_bt;
+    private EditText searchByDate, searchByLocation, searchByMarkups;
 
     boolean button_click = false;
     boolean location_clicked = false;
     boolean markups_clicked = false;
+    private CheckBox income_checkbox;
+    private CheckBox expense_checkbox;
 
-    Switch switch_trade;
 
 
     boolean date_set = true;
@@ -54,8 +52,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         searchByLocation = (EditText) view.findViewById(R.id.search_by_location_et);
         searchByMarkups = (EditText) view.findViewById(R.id.search_by_markups_et);
         search_bt = (Button) view.findViewById(R.id.search_bt);
+        income_checkbox = (CheckBox) view.findViewById(R.id.income_chb);
+        expense_checkbox = (CheckBox) view.findViewById(R.id.expense_chb);
 
-        switch_trade = (Switch) view.findViewById(R.id.switch_trade);
+
         searchByDate.setOnClickListener(this);
         searchLocation.setOnClickListener(this);
         searchMarkups.setOnClickListener(this);
@@ -110,13 +110,16 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     String search_by_date = searchByDate.getText().toString();
                     String search_by_markups = searchByMarkups.getText().toString();
                     String search_by_location = searchByLocation.getText().toString();
-                    boolean isChecked = switch_trade.isChecked();
+                    boolean income_chb = income_checkbox.isChecked();
+                    boolean expense_chb = expense_checkbox.isChecked();
 
                 Intent intent = new Intent(getContext(), ResultActivity.class);
                 intent.putExtra("search_by_date",search_by_date);
                 intent.putExtra("search_by_markups",search_by_markups);
                 intent.putExtra("search_by_location",search_by_location);
-                intent.putExtra("isChecked",isChecked);
+                intent.putExtra("income_chb",income_chb);
+                intent.putExtra("expense_chb",expense_chb);
+
                 startActivity(intent);
 
                 break;
@@ -146,6 +149,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
         public void onDateSet(DatePicker view, int c_year,
                               int c_month, int c_day) {
+            int year,month,day;
+
 
 
             year = c_year;

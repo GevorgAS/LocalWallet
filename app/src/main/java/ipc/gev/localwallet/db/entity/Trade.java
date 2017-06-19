@@ -5,7 +5,7 @@ public class Trade {
     private long id;
     private String markups;
     private String location;
-    private int price;
+    private long price;
     private String date;
     private int status;
     public static final int INCOME = 1;
@@ -16,19 +16,10 @@ public class Trade {
     public Trade(){
 
     }
-    public Trade(long id){
-        this.id = id;
-    }
 
-    public Trade(long id, String markups, String location, int price, String date) {
-        this.id = id;
-        this.markups = markups;
-        this.location = location;
-        this.price = price;
-        this.date = date;
-    }
 
-    public Trade(String markups, String location, int price, String date, int status) {
+
+    public Trade(String markups, String location, long price, String date, int status) {
         this.markups = markups;
         this.location = location;
         this.price = price;
@@ -36,14 +27,6 @@ public class Trade {
         this.status = status;
     }
 
-    public Trade(long id, String markups, String location, int price, String date, int status) {
-        this.id = id;
-        this.markups = markups;
-        this.location = location;
-        this.price = price;
-        this.date = date;
-        this.status = status;
-    }
 
     public int getStatus() {
         return status;
@@ -61,12 +44,6 @@ public class Trade {
         this.id = id;
     }
 
-    public Trade(String markups, String location, int price, String date) {
-        this.markups = markups;
-        this.location = location;
-        this.price = price;
-        this.date = date;
-    }
 
     public String getMarkups() {
         return markups;
@@ -84,11 +61,11 @@ public class Trade {
         this.location = location;
     }
 
-    public int getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(long price) {
         this.price = price;
     }
 

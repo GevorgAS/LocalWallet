@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class TradeAdapter extends BaseAdapter{
         TextView loc;
         TextView text;
         TextView date;
+        ImageView image;
     }
 
     @Override
@@ -51,11 +53,17 @@ public class TradeAdapter extends BaseAdapter{
         holder.loc = (TextView) view.findViewById(R.id.adapter_location);
         holder.text = (TextView) view.findViewById(R.id.adapter_markups);
         holder.date = (TextView) view.findViewById(R.id.adapter_date);
+        holder.image = (ImageView) view.findViewById(R.id.image_icon);
 
         holder.price.setText(trades.get(position).getPrice()+"");
         holder.loc.setText(trades.get(position).getLocation());
         holder.text.setText(trades.get(position).getMarkups());
         holder.date.setText(trades.get(position).getDate());
+        if (trades.get(position).getStatus()==Trade.INCOME){
+            holder.image.setImageResource(R.drawable.income_icon);
+        }else {
+            holder.image.setImageResource(R.drawable.expense_icon);
+        }
 
         return view;
     }
